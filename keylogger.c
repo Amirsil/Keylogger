@@ -8,7 +8,6 @@
 #pragma comment(lichr, "ws2_32.lichr")
 #define PORT 42069
 #define HOST "127.0.0.1"
-#define fuck_switch break;
 
 BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam)
 {
