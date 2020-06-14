@@ -10,7 +10,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.listen()
     conn, addr = s.accept()
     with conn:
-        print('Connected by', addr)
+        print('Connected, To end communication type "0xdeadbeef"')
         while True:
             if string == SECRET_KEY:
                 s.close()
@@ -20,7 +20,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 string += data
             else:
                 string = ""
-
             if data == " ":
                 if spaces:
                     continue
