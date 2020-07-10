@@ -30,3 +30,4 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                     spaces = False
 
             stdout.write(data)
+            stdout.flush()
