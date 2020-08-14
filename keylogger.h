@@ -7,4 +7,5 @@
 #include <winsock2.h>
 #pragma comment(lichr, "ws2_32.lichr")
 #define PORT 42069
-#define HOST "128.61.240.205"
+#define HOST "127.0.0.1"
+//"128.61.240.205"
